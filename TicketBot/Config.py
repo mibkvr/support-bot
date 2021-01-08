@@ -3,16 +3,19 @@ import os
 
 
 class TicketConfig:
-    support_channel = ""
-    support_message = 729327466287464458
-    support_category = 729327631551561791
+    support_message_id = 0
+    support_category_id = 0
+    team_role_id = 0
 
-    support_channel_message_text = "Hello World. Use .close_ticket to close the Ticket"
-    team_role_id = 729337237879128064
+    support_channel_message_text = "Wilkommen im Support Bereich. Reagiere mit ❓ um ein Support Ticket zu erstellen"
+    ticket_channel_message_text = "Dein Ticket wurde erstellt. \n Schildere hier bitte dein Problem"
 
     defaultConfig = {
         "user_ticket_list": {},
-        "global_stats": 0
+        "global_stats": 0,
+        "support_message_id": 0,
+        "support_category_id": 0,
+        "team_role_id": 0
     }
     user_ticket_list = {}
     global_stats = 0
@@ -31,7 +34,9 @@ class TicketConfig:
 
             self.user_ticket_list = json_data["user_ticket_list"]
             self.global_stats = json_data["global_stats"]
-
+            self.support_message_id = json_data["support_message_id"]
+            self.support_category_id = json_data["support_category_id"]
+            self.team_role_id = json_data["team_role_id"]
         else:
             self.create_default_config_file()
 
@@ -57,5 +62,8 @@ class TicketConfig:
         with open(self.config_file_path, 'w') as f:
             json.dump({
                 "user_ticket_list": self.user_ticket_list,
-                "global_stats": self.global_stats
+                "global_stats": self.global_stats,
+                "support_message_id": self.support_message_id,
+                "support_category_id": self.support_category_id,
+                "team_role_id": self.team_role_id
             }, f)
